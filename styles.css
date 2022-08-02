@@ -1,0 +1,21 @@
+
+body {
+    display: flex;
+    justify-content: center;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto;
+    column-gap: 10px;
+    row-gap: 10px;
+}
+
+#game-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: solid 1px black;
+    height: 30rem;
+    width: 60%;
+}
