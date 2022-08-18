@@ -1,6 +1,6 @@
 let body = document.body;
 let gameContainer = document.querySelector("#game-container");
-
+let gameContainerRect = gameContainer.getBoundingClientRect()
 let grid = document.querySelector(".grid");
 let gameStart = false;
 // class Block {
@@ -42,7 +42,7 @@ function CreatePlayer() {
     player.style.height = "15px";
     player.style.width = "120px";
     // player.style.left = gameContainer.getBoundingClientRect().width / 2 + "px";
-    player.style.transform = `translateX(${(gameContainer.getBoundingClientRect().width / 2) - 120 / 2}px)`;
+    player.style.transform = `translateX(${(gameContainerRect.width / 2) - 120 / 2}px)`;
 
     player.style.bottom = "50px";
     player.style.marginLeft = "1px";
@@ -61,15 +61,14 @@ function CreatePlayer() {
 }
 
 CreatePlayer();
-let position = (gameContainer.getBoundingClientRect().width / 2) - 120 / 2;
+let position = (gameContainerRect.width / 2) - 120 / 2;
 function MovePlayer(event) {
-
-
+    let playerRect = player.getBoundingClientRect()
     switch (event.key) {
         case "ArrowLeft":
             position -= 6;
             player.style.transform = `translateX(${position}px)`;
-            if (player.getBoundingClientRect().left <= gameContainer.getBoundingClientRect().left + 15) {
+            if (playerRect.left <= gameContainerRect.left + 15) {
                 position += 6;
             }
             break;
@@ -77,7 +76,7 @@ function MovePlayer(event) {
             position += 6;
             player.style.transform = `translateX(${position}px)`;
 
-            if (player.getBoundingClientRect().right >= gameContainer.getBoundingClientRect().right - 15) {
+            if (playerRect.right >= gameContainerRect.right - 15) {
                 position -= 6;
             }
             break;
@@ -148,6 +147,7 @@ function CheckCollision() {
 
 function Game() {
     MoveBall()
+
 
     requestAnimationFrame(Game)
 
