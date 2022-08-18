@@ -1,7 +1,8 @@
 
 body {
     display: flex;
-    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .grid {
@@ -12,14 +13,20 @@ body {
 }
 
 #game-container {
-    display: flex;
+    /* display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-between; */
     border: solid 1px black;
     height: 30rem;
-    width: 60%;
+    width: 42%;
+    position: relative;
 }
 
+#button-container {
+    display: flex;
+    width: 42%;
+    justify-content: space-evenly;
+}
 
 /* @keyframes move {
     0% {
