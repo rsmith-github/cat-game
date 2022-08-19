@@ -1,5 +1,6 @@
 let body = document.body;
 let gameContainer = document.querySelector("#game-container");
+let gameContainerRect = gameContainer.getBoundingClientRect()
 
 let grid = document.querySelector(".grid");
 let gameStart = false;
@@ -61,25 +62,30 @@ function CreatePlayer() {
 }
 
 CreatePlayer();
-let position = (gameContainer.getBoundingClientRect().width / 2) - 120 / 2;
+let position = (gameContainer.getBoundingClientRect().width / 2) - 120 / 2 - 1;
 function MovePlayer(event) {
+    console.log(position)
+    let playerRect = player.getBoundingClientRect();
+
 
 
     switch (event.key) {
         case "ArrowLeft":
-            position -= 6;
-            player.style.transform = `translateX(${position}px)`;
-            if (player.getBoundingClientRect().left <= gameContainer.getBoundingClientRect().left + 15) {
-                position += 6;
-            }
-            break;
-        case "ArrowRight":
-            position += 6;
-            player.style.transform = `translateX(${position}px)`;
 
-            if (player.getBoundingClientRect().right >= gameContainer.getBoundingClientRect().right - 15) {
+            // Keep player within bounds.
+            if (position > 6) {
                 position -= 6;
             }
+            player.style.transform = `translateX(${position}px)`;
+
+            break;
+        case "ArrowRight":
+
+            if (position < 348) {
+                position += 6;
+            }
+            player.style.transform = `translateX(${position}px)`;
+
             break;
 
     }
