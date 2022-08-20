@@ -1,23 +1,14 @@
 let body = document.body;
 let gameContainer = document.querySelector("#game-container");
 let gameContainerRect = gameContainer.getBoundingClientRect()
-
 let grid = document.querySelector(".grid");
 let gameStart = false;
-// class Block {
-//     constructor(xAxis, yAxis) {
-//         this.bottomLeft = [xAxis, yAxis]
-//         this.bottomRight = [xAxis + blockWidth, yAxis]
-//         this.topRight = [xAxis + blockWidth, yAxis + blockHeight]
-//         this.topLeft = [xAxis, yAxis + blockHeight]
-//     }
-// }
 
 // let blocks = [];
 function CreateGrid() {
     for (let i = 0; i < 18; i++) {
         let rectangle = document.createElement("img");
-        rectangle.src = "chicken.gif"
+        rectangle.src = "meat.png"
         rectangle.style.border = "solid 1px black";
         rectangle.style.height = "50px";
         rectangle.style.width = "100%";
@@ -27,11 +18,6 @@ function CreateGrid() {
         // let newBlock = new Block
         // newBlock.bottomLeft = rectangle.left
     }
-    document.querySelectorAll(".block").forEach(block => {
-        block.addEventListener("click", () => {
-            block.style.backgroundColor = "red";
-        })
-    });
 
 }
 CreateGrid();
@@ -42,19 +28,15 @@ function CreatePlayer() {
     player.style.border = "solid 1px black";
     player.style.height = "15px";
     player.style.width = "120px";
-    // player.style.left = gameContainer.getBoundingClientRect().width / 2 + "px";
-    player.style.transform = `translateX(${(gameContainer.getBoundingClientRect().width / 2) - 120 / 2}px)`;
+    player.style.transform = `translateX(${(gameContainerRect.width / 2) - 120 / 2}px)`;
 
     player.style.bottom = "50px";
     player.style.marginLeft = "1px";
     player.style.backgroundColor = "#98B4D4";
 
     player.style.position = "absolute";
-    player.style.transition = "all 25ms linear 0ms";
-    // player.style.animationName = "move";
-    // player.style.animationDuration = "2s";
-    // player.style.animationFillMode = "forwards";
-    // player.style.transitionTimingFunction = "linear";
+    player.style.transitionDuration = "0.3s"
+    player.style.transitionTimingFunction = "linear";
 
 
 
@@ -62,27 +44,34 @@ function CreatePlayer() {
 }
 
 CreatePlayer();
-let position = (gameContainer.getBoundingClientRect().width / 2) - 120 / 2 - 1;
+let position = (gameContainerRect.width / 2) - 120 / 2 - 1;
 function MovePlayer(event) {
-    console.log(position)
-    let playerRect = player.getBoundingClientRect();
-
-
 
     switch (event.key) {
         case "ArrowLeft":
 
-            // Keep player within bounds.
-            if (position > 6) {
-                position -= 6;
+            // Keep player paddle in bounds and move left if left arrow is clicked.
+            if (position > 3) {
+                position -= 12;
+            }
+            if (position == 6) {
+                position -= 6
+            }
+            if (position == 8) {
+                position -= 8
             }
             player.style.transform = `translateX(${position}px)`;
 
             break;
         case "ArrowRight":
 
+            // Keep player paddle in bounds and move right if right arrow is clicked.
             if (position < 348) {
-                position += 6;
+                position += 12;
+            }
+            if (position == 348) {
+                position += 8;
+
             }
             player.style.transform = `translateX(${position}px)`;
 
@@ -106,7 +95,7 @@ function CreateBall() {
 
     ball.style.bottom = "66px";
     gameContainer.appendChild(ball);
-    ball.style.transform = `translateX(${(gameContainer.getBoundingClientRect().width / 2) - (ball.getBoundingClientRect().width / 2) + 5}px)`;
+    ball.style.transform = `translateX(${(gameContainerRect.width / 2) - (ball.getBoundingClientRect().width / 2) + 5}px)`;
 
 }
 
@@ -136,7 +125,7 @@ function CheckCollision() {
     let ballRect = ball.getBoundingClientRect();
     let playerRect = player.getBoundingClientRect();
     // check for wall collision
-    if (ballRect.top <= (gameContainer.getBoundingClientRect().top)) {
+    if (ballRect.top <= (gameContainerRect.top)) {
         console.log("HIT TOP");
         bottom -= 2;
         topEdge = true;
@@ -154,6 +143,7 @@ function CheckCollision() {
 
 function Game() {
     MoveBall()
+
 
     requestAnimationFrame(Game)
 
