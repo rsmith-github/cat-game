@@ -185,6 +185,9 @@ function MoveBall() {
 }
 
 
+// Set score to 0
+let frontEndScore = document.querySelector("#score");
+
 function CheckCollision() {
     let ballRect = ball.getBoundingClientRect();
     let playerRect = player.getBoundingClientRect();
@@ -196,14 +199,23 @@ function CheckCollision() {
 
     }
 
+    // Check for block collision
     blocks.forEach((brick) => {
         let blockRect = brick.getBoundingClientRect()
+        // If left side of ball is within the block OR the right side of the ball is within the block, hide it using opacity.
         if (ballRect.left >= blockRect.left && ballRect.left < blockRect.right && blockRect.bottom >= ballRect.top || blockRect.bottom >= ballRect.top && ballRect.right > blockRect.left && ballRect.right < blockRect.right) {
-            console.log("ball", ballRect.left)
-            console.log("brick", blockRect.left)
             brick.style.opacity = "0";
+            brick.className = "hidden";
         }
     })
+
+    let gridLength = grid.querySelectorAll(".hidden").length
+    frontEndScore.innerHTML = gridLength;
+
+    if (gridLength == 18) {
+        alert("You win!")
+        // window.reload()
+    }
 
     // check for user collision
     if (ballRect.bottom >= playerRect.top && ballRect.right >= playerRect.left && ballRect.left <= playerRect.right) {
@@ -247,6 +259,7 @@ function CheckCollision() {
 
 
 }
+console.log(blocks)
 
 function Game() {
     if (!gameStart) {
