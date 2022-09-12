@@ -3,17 +3,29 @@ let gameContainer = document.querySelector("#game-container");
 let gameContainerRect = gameContainer.getBoundingClientRect()
 let grid = document.querySelector(".grid");
 let gameStart = false;
+let win = false;
+let lifeLost = false;
+let lives = document.getElementById("lives");
 
 let blocks = [];
 function CreateGrid() {
     for (let i = 0; i < 18; i++) {
         let rectangle = document.createElement("img");
-        rectangle.src = "meat.png"
+        if (i >= 0 && i < 6) {
+            rectangle.src = "chicken.gif"
+
+        } else if (i >= 6 && i <= 11) {
+            rectangle.src = "meat.png"
+
+        } else {
+            rectangle.src = "maki.png"
+        }
         rectangle.style.border = "solid 1px black";
         rectangle.style.height = "50px";
         rectangle.style.width = "100%";
+        rectangle.style.borderRadius = "25%"
         rectangle.id = `block-${i + 1}`
-        rectangle.className = 'block'
+        // rectangle.className = 'block'
         grid.append(rectangle);
         blocks.push(rectangle);
         // let newBlock = new Block
@@ -22,6 +34,18 @@ function CreateGrid() {
 
 }
 CreateGrid();
+
+function DisplayLives() {
+    for (let i = 0; i < 3; i++) {
+        let life = document.createElement("img");
+        life.src = "life.png";
+        life.style.height = "20px";
+        life.style.width = "20px";
+        life.className = "life"
+        lives.append(life)
+    }
+}
+DisplayLives();
 
 let player = document.createElement("div");
 let ball = document.createElement("img");
@@ -47,10 +71,12 @@ function CreatePlayer() {
 
 CreatePlayer();
 let position = (gameContainerRect.width / 2) - 120 / 2 - 1;
-let ballPos = (gameContainerRect.width / 2) + (ball.getBoundingClientRect().width - 25)
+let ballRect = (gameContainerRect.width / 2) - (ball.getBoundingClientRect().width / 2) + 3
+let ballPos = ballRect.left
 function MovePlayer(event) {
     switch (event.key) {
         case "ArrowLeft":
+            let ballRect = ball.getBoundingClientRect()
 
             // Keep player paddle in bounds and move left if left arrow is clicked.
             if (position > 3) {
@@ -65,10 +91,10 @@ function MovePlayer(event) {
             player.style.transform = `translateX(${position}px)`;
 
             // Make ball follow user if game hasn't started.
-            // if (!gameStart) {
-            //     ballPos -= 4
-            //     ball.style.transform = `translateX(${ballPos}px)`;
-            // }
+            if (!gameStart) {
+                ballPos -= 12
+                ball.style.transform = `translateX(${ballPos}px)`;
+            }
 
             break;
         case "ArrowRight":
@@ -80,13 +106,14 @@ function MovePlayer(event) {
             if (position == 348) {
                 position += 8;
             }
+            console.log(position);
             player.style.transform = `translateX(${position}px)`;
 
             // Make ball follow user if game hasn't started.
-            // if (!gameStart) {
-            //     ballPos += 4
-            //     ball.style.transform = `translateX(${ballPos}px)`;
-            // }
+            if (!gameStart) {
+                ballPos += 8
+                ball.style.transform = `translateX(${ballPos}px)`;
+            }
 
             break;
 
@@ -102,16 +129,16 @@ document.addEventListener('keydown', MovePlayer);
 // Create ball
 function CreateBall() {
     // Styling
-    ball.style.width = "50px";
-    ball.style.height = "50px";
+    ball.style.width = "25px";
+    ball.style.height = "25px";
     ball.src = "cat.gif"
     ball.style.position = "absolute";
-    ball.style.border = "solid 1px black";
+    // ball.style.border = "outset 4px white";
     ball.style.bottom = "66px";
     gameContainer.appendChild(ball);
 
     // Position
-    ball.style.transform = `translateX(${(gameContainerRect.width / 2) - (ball.getBoundingClientRect().width / 2) + 5}px)`;
+    ball.style.transform = `translateX(${(gameContainerRect.width / 2) - (ball.getBoundingClientRect().width / 2) + 3}px)`;
 
 }
 CreateBall();
@@ -119,7 +146,7 @@ CreateBall();
 // Set bottom to 68px;
 let bottom = 68
 // Player collision booleans to check which collisions have happened.
-let topEdge, rightEdge, leftEdge, pRightSide, pLeftSide;
+let topEdge, rightEdge, leftEdge, pRightSide, pLeftSide, brickBottomCollision;
 let ballLeft = 0;
 
 
@@ -148,18 +175,22 @@ function MoveBall() {
         }
     }
 
-    // If ball hits player left or right side, make it go in expected direction.
+    // If ball hits player on left or right side, make it go in expected direction.
     if (pLeftSide == true) {
         pRightSide = false;
-        ballLeft -= 2;
+        if (!rightEdge && !leftEdge) {
+            ballLeft -= 2;
+        }
     } else if (pRightSide == true) {
         pLeftSide = false;
-        ballLeft += 2
+        if (!rightEdge && !leftEdge) {
+            ballLeft += 2
+        }
     }
 
 
     // Left wall.
-    if (leftEdge && !topEdge) {
+    if (leftEdge == true && !topEdge) {
         ballLeft += 4
     } else if (leftEdge && topEdge) {
         pRightSide = false;
@@ -171,6 +202,10 @@ function MoveBall() {
         }
     }
 
+    if (brickBottomCollision) {
+        bottom -= 4;
+    }
+
     console.log("Top Edge:", topEdge, "Right Edge:", rightEdge, "Left Edge:", leftEdge, "Plyr Right:", pRightSide, "Plyr Left:", pLeftSide)
 
 
@@ -178,9 +213,8 @@ function MoveBall() {
     CheckCollision();
     if (bottom <= 1) {
         bottom += 2;
-
-        alert("Game over.");
-        exit(1);
+        lifeLost = true;
+        return;
     }
 }
 
@@ -191,8 +225,11 @@ let frontEndScore = document.querySelector("#score");
 function CheckCollision() {
     let ballRect = ball.getBoundingClientRect();
     let playerRect = player.getBoundingClientRect();
+    // Redeclaring this because dev-tools was messing up the boundaries.
+    let gameRect = gameContainer.getBoundingClientRect()
+    
     // check for top wall collision
-    if (ballRect.top <= (gameContainerRect.top)) {
+    if (ballRect.top <= (gameRect.top)) {
         console.log("HIT TOP");
         bottom -= 2;
         topEdge = true;
@@ -202,70 +239,99 @@ function CheckCollision() {
     // Check for block collision
     blocks.forEach((brick) => {
         let blockRect = brick.getBoundingClientRect()
+
         // If left side of ball is within the block OR the right side of the ball is within the block, hide it using opacity.
-        if (ballRect.left >= blockRect.left && ballRect.left < blockRect.right && blockRect.bottom >= ballRect.top || blockRect.bottom >= ballRect.top && ballRect.right > blockRect.left && ballRect.right < blockRect.right) {
+        if (brick.className != "hidden" && ballRect.left >= blockRect.left && ballRect.left < blockRect.right && blockRect.bottom >= ballRect.top || brick.className != "hidden" && blockRect.bottom >= ballRect.top && ballRect.right > blockRect.left && ballRect.right < blockRect.right) {
             brick.style.opacity = "0";
             brick.className = "hidden";
+            bottom -= 2;
+            brickBottomCollision = true;
+            topEdge = false;
+            return;
+
         }
+
     })
 
     let gridLength = grid.querySelectorAll(".hidden").length
     frontEndScore.innerHTML = gridLength;
 
     if (gridLength == 18) {
-        alert("You win!")
-        // window.reload()
+        win = true;
+        return;
     }
 
     // check for user collision
     if (ballRect.bottom >= playerRect.top && ballRect.right >= playerRect.left && ballRect.left <= playerRect.right) {
         console.log("user collision");
+
         topEdge = false;
         leftEdge = false;
         rightEdge = false;
+        brickBottomCollision = false;
 
         bottom += 2;
     }
 
     // Check player paddle right side collision
-    if (ballRect.left >= (playerRect.right - playerRect.width / 2) && ballRect.left <= playerRect.right && ballRect.bottom >= playerRect.top) {
+    if (ballRect.left > (playerRect.right - playerRect.width / 2) && ballRect.left < playerRect.right && ballRect.bottom >= playerRect.top) {
         pRightSide = true;
         pLeftSide = false
-
     }
     // Check playerPaddle left side collision
-    else if (ballRect.right <= (playerRect.left + playerRect.width / 2) && ballRect.right >= playerRect.left && ballRect.bottom >= playerRect.top) {
+    else if (ballRect.right < (playerRect.left + playerRect.width / 2) && ballRect.right > playerRect.left && ballRect.bottom >= playerRect.top) {
         pLeftSide = true;
         pRightSide = false
     }
 
     // Right wall collision
-    if (ballRect.right >= gameContainerRect.right) {
+    if (ballRect.right >= gameRect.right) {
         console.log("Hit right")
         rightEdge = true;
         leftEdge = false;
     }
 
     // Left wall collision
-    if (ballRect.left <= gameContainerRect.left) {
+    if (ballRect.left <= gameRect.left) {
         console.log("Hit left")
         leftEdge = true;
         rightEdge = false;
     }
 
-
-
-
-
-
 }
-console.log(blocks)
 
+let startButton = document.querySelector("#gameStart")
 function Game() {
     if (!gameStart) {
         gameStart = true;
     }
+    if (gameStart) {
+        startButton.disabled = true;
+    }
+    if (win) {
+        alert("You win!");
+        return;
+    }
 
+    if (lifeLost) {
+        lives.removeChild(lives.lastChild)
+        // alert("Oops!, you lost a life.");
+
+        // Move player back to original position.
+        player.style.transform = `translateX(${(gameContainerRect.width / 2) - 120 / 2}px)`;
+        position = (gameContainerRect.width / 2) - 120 / 2 - 1;
+
+        // Move ball back to original position.
+        ball.style.transform = `translateX(${(gameContainerRect.width / 2) - (ball.getBoundingClientRect().width / 2) + 3}px)`;
+        ball.style.bottom = "66px";
+        bottom = 68;
+        lifeLost = false;
+
+        if (document.querySelectorAll(".life").length == 0) {
+            alert("Game over! You lost all your lives.")
+            return;
+        }
+    }
     MoveBall()
 
 
@@ -274,6 +340,7 @@ function Game() {
 }
 
 
-function Stop() {
+function Reload() {
     gameStart = false;
+    window.location.reload();
 }

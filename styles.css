@@ -1,5 +1,12 @@
 
 body {
+    margin-top: 5%;
+    background: #3399ff;
+    /* overflow: hidden; */
+
+}
+
+main {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -7,7 +14,7 @@ body {
 
 .grid {
     display: grid;
-    grid-template-columns: 71.3px 71.3px 71.3px 71.3px 71.3px 71.3px;
+    grid-template-columns: auto auto auto auto auto auto;
     column-gap: 10px;
     row-gap: 10px;
 }
@@ -19,6 +26,7 @@ body {
     border: solid 1px black;
     height: 30rem;
     width: 480px;
+    background-color: rgba(255, 255, 255, .2);
     position: relative;
 }
 
@@ -26,6 +34,7 @@ body {
     display: flex;
     width: 42%;
     justify-content: space-evenly;
+    position: relative;
 }
 
 /* @keyframes move {
@@ -39,3 +48,13 @@ body {
         margin-left: 0%;
     }
 } */
+  
+
+#lives {
+    align-items: flex-start;
+}
+
+.lives-and-score {
+    display: flex;
+    justify-content: space-evenly;
+}
