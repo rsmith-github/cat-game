@@ -6,11 +6,20 @@ let gameStart = false;
 
 let blocks = [];
 function CreateGrid() {
-    for (let i = 0; i < 18; i++) {
+    for (let i = 0; i < 40; i++) {
         let rectangle = document.createElement("img");
         rectangle.src = "meat.png"
+        if (i >= 10 && i <= 19) {
+            rectangle.src = "catfood.png"
+        } else if (i >= 20 && i <= 29) {
+            rectangle.src = "fish.png"
+        } else if (i >= 30 && i <= 40) {
+            rectangle.src = "prawn.png"
+        }
+        rectangle.style.imageRendering = "pixelated";
+        rectangle.style.objectFit = "scale-down"
         rectangle.style.border = "solid 1px black";
-        rectangle.style.height = "50px";
+        rectangle.style.height = "40px";
         rectangle.style.width = "100%";
         rectangle.id = `block-${i + 1}`
         rectangle.className = 'block'
@@ -19,28 +28,30 @@ function CreateGrid() {
         // let newBlock = new Block
         // newBlock.bottomLeft = rectangle.left
     }
-
 }
 CreateGrid();
 
 let player = document.createElement("div");
+let ballbox = document.createElement("div");
 let ball = document.createElement("img");
+let water = document.createElement("div");
 function CreatePlayer() {
     player.id = "player";
-    player.style.border = "solid 1px black";
-    player.style.height = "15px";
+    // player.style.border = "solid 1px black";
+    player.style.height = "17px";
     player.style.width = "120px";
     player.style.transform = `translateX(${(gameContainerRect.width / 2) - 120 / 2}px)`;
 
+    // player.style.backgroundImage = "url(grass-tile.png)"
+
     player.style.bottom = "50px";
     player.style.marginLeft = "1px";
-    player.style.backgroundColor = "#98B4D4";
 
     player.style.position = "absolute";
     player.style.transitionDuration = "0.3s"
     player.style.transitionTimingFunction = "linear";
-
-
+    
+    
 
     document.querySelector("#game-container").appendChild(player);
 }
@@ -74,7 +85,8 @@ function MovePlayer(event) {
         case "ArrowRight":
 
             // Keep player paddle in bounds and move right if right arrow is clicked.
-            if (position < 348) {
+            console.log(position)
+            if (position < 425) {
                 position += 12;
             }
             if (position == 348) {
@@ -102,19 +114,35 @@ document.addEventListener('keydown', MovePlayer);
 // Create ball
 function CreateBall() {
     // Styling
-    ball.style.width = "50px";
-    ball.style.height = "50px";
-    ball.src = "cat.gif"
+    // ball.id = "sprite";
+    ball.src = "cat-sprite.png"
+    ball.alt = "Cat Sprite"
+
     ball.style.position = "absolute";
-    ball.style.border = "solid 1px black";
-    ball.style.bottom = "66px";
-    gameContainer.appendChild(ball);
+
+    ballbox.className = "ballbox"
+
+    ballbox.appendChild(ball)
+    gameContainer.appendChild(ballbox);
 
     // Position
-    ball.style.transform = `translateX(${(gameContainerRect.width / 2) - (ball.getBoundingClientRect().width / 2) + 5}px)`;
+    ballbox.style.transform = `translateX(${(gameContainerRect.width / 2) - (ballbox.getBoundingClientRect().width / 2) + 5}px)`;
 
 }
 CreateBall();
+
+// Create water
+function CreateWater() {
+    // Styling
+    water.id = "water"
+    water.style.position = "absolute"
+    water.style.width = "100%"
+    water.style.height = "43px"
+    water.style.bottom = "0px";
+
+    gameContainer.appendChild(water);
+}
+CreateWater(); 
 
 // Set bottom to 68px;
 let bottom = 68
@@ -124,8 +152,8 @@ let ballLeft = 0;
 
 
 function MoveBall() {
-    ball.style.bottom = bottom + "px";
-    ball.style.left = ballLeft + "px";
+    ballbox.style.bottom = bottom + "px";
+    ballbox.style.left = ballLeft + "px";
 
 
     // Most basic bouncing off top. If top edge is hit, move ball downward. Else, move ball up.
@@ -189,7 +217,7 @@ function MoveBall() {
 let frontEndScore = document.querySelector("#score");
 
 function CheckCollision() {
-    let ballRect = ball.getBoundingClientRect();
+    let ballRect = ballbox.getBoundingClientRect();
     let playerRect = player.getBoundingClientRect();
     // check for top wall collision
     if (ballRect.top <= (gameContainerRect.top)) {

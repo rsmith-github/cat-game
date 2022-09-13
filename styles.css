@@ -1,25 +1,71 @@
-
+:root {
+ --pixel-size: 6;
+}
 body {
     display: flex;
     align-items: center;
     flex-direction: column;
+    background-image: url(https://img.freepik.com/free-vector/blank-nature-park-landscape-daytime-scene_1308-57977.jpg?w=2000);
+    background-position: 58%;
+}
+
+#title-text {
+    font-size: 2em;
 }
 
 .grid {
+    margin: 4px;
     display: grid;
-    grid-template-columns: 71.3px 71.3px 71.3px 71.3px 71.3px 71.3px;
-    column-gap: 10px;
-    row-gap: 10px;
+    grid-template-columns: 50.3px 50.3px 50.3px 50.3px 50.3px 50.3px 50.3px 50.3px 50.3px 50.3px;
+    column-gap: 5px;
+    row-gap: 2px;
 }
 
 #game-container {
-    /* display: flex;
-    flex-direction: column;
-    justify-content: space-between; */
-    border: solid 1px black;
-    height: 30rem;
-    width: 480px;
+    border: solid 1.5px black;
+    border-radius: 3px;
+    height: 32rem;
+    width: 560px;
     position: relative;
+    backdrop-filter: blur(100px);
+}
+
+#player {
+    background-image: url(grass-tile.png);
+    image-rendering: pixelated;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.ballbox {
+    width: calc(6px * var(--pixel-size));
+    height: calc(6px * var(--pixel-size));
+    background-color: aqua;
+    /* overflow: hidden; */
+    position: absolute !important;
+    bottom: 66px;
+}
+
+#sprite {
+    /* width: calc(121px * var(--pixel-size)); */
+    width: calc(77px * var(--pixel-size));
+    object-fit: cover;
+    image-rendering: pixelated;
+    /* transform: translate(-24.5px, -6%); */
+    transform: translate(-24.5px, -6%);
+
+    /* animation:  */
+        /* tailwag 5s steps(4) infinite; */
+        /* lick 0.6s steps(4) 3, */
+        /* clean 0.6s steps(4) 2; */
+        /* lick 0.6s steps(4) 2,
+        clean 0.6s steps(4) 1; */
+}
+
+#water {
+    background-image: url(water.png);
+    background-size: cover;
+    image-rendering: pixelated;
 }
 
 #button-container {
@@ -28,14 +74,27 @@ body {
     justify-content: space-evenly;
 }
 
-/* @keyframes move {
-    0% {
-        margin-left: 0%;
+@keyframes tailwag {
+    from {
+        transform: translate3d(-3.3%,-6%,0);
     }
-    50% {
-        margin-left: 50%;
+    to {
+        transform: translate3d(-50%,-6%,0);
     }
-    100% {
-        margin-left: 0%;
+}
+@keyframes lick {
+    from {
+        transform: translate3d(0px,-20%,0);
     }
-} */
+    to {
+        transform: translate3d(-50%,-20%,0);
+    }
+}
+@keyframes clean {
+    from {
+        transform: translate3d(0px,-30%,0);
+    }
+    to {
+        transform: translate3d(-50%,-30%,0);
+    }
+}
