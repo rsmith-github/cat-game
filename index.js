@@ -4,28 +4,36 @@ let gameContainerRect = gameContainer.getBoundingClientRect()
 let grid = document.querySelector(".grid");
 let gameStart = false;
 let win = false;
+// Check if life was lost.
 let lifeLost = false;
+// Boolean to add a condition in the CheckCollision function. If true, bottom += 4.
+let lifeLostDirectionChange = false;
 let lives = document.getElementById("lives");
+// Pause menu
+let pauseMenu = document.querySelector("#pause-menu");
+let paused = false;
+let timesup = false;
+
 
 let blocks = [];
 function CreateGrid() {
-    for (let i = 0; i < 18; i++) {
+    for (let i = 0; i < 40; i++) {
         let rectangle = document.createElement("img");
-        if (i >= 0 && i < 6) {
-            rectangle.src = "chicken.gif"
-
-        } else if (i >= 6 && i <= 11) {
-            rectangle.src = "meat.png"
-
-        } else {
-            rectangle.src = "maki.png"
+        rectangle.src = "meat.png"
+        if (i >= 10 && i <= 19) {
+            rectangle.src = "catfood.png"
+        } else if (i >= 20 && i <= 29) {
+            rectangle.src = "fish.png"
+        } else if (i >= 30 && i <= 40) {
+            rectangle.src = "prawn.png"
         }
+        rectangle.style.imageRendering = "pixelated";
+        rectangle.style.objectFit = "scale-down"
         rectangle.style.border = "solid 1px black";
-        rectangle.style.height = "50px";
+        rectangle.style.height = "40px";
         rectangle.style.width = "100%";
-        rectangle.style.borderRadius = "25%"
         rectangle.id = `block-${i + 1}`
-        // rectangle.className = 'block'
+        rectangle.className = 'block'
         grid.append(rectangle);
         blocks.push(rectangle);
         // let newBlock = new Block
@@ -49,16 +57,17 @@ DisplayLives();
 
 let player = document.createElement("div");
 let ball = document.createElement("img");
+let water = document.createElement("div");
+let ballbox = document.createElement("div");
 function CreatePlayer() {
     player.id = "player";
-    player.style.border = "solid 1px black";
+
     player.style.height = "15px";
     player.style.width = "120px";
     player.style.transform = `translateX(${(gameContainerRect.width / 2) - 120 / 2}px)`;
 
     player.style.bottom = "50px";
     player.style.marginLeft = "1px";
-    player.style.backgroundColor = "#98B4D4";
 
     player.style.position = "absolute";
     player.style.transitionDuration = "0.3s"
@@ -74,20 +83,21 @@ let position = (gameContainerRect.width / 2) - 120 / 2 - 1;
 let ballRect = (gameContainerRect.width / 2) - (ball.getBoundingClientRect().width / 2) + 3
 let ballPos = ballRect.left
 function MovePlayer(event) {
+    if (!gameStart) return;
+
     switch (event.key) {
         case "ArrowLeft":
-            let ballRect = ball.getBoundingClientRect()
+            // let ballRect = ball.getBoundingClientRect()
+
 
             // Keep player paddle in bounds and move left if left arrow is clicked.
-            if (position > 3) {
+            if (position > 4.5) {
                 position -= 12;
             }
-            if (position == 6) {
-                position -= 6
+            if (position == 4.5) {
+                position -= 4.5
             }
-            if (position == 8) {
-                position -= 8
-            }
+
             player.style.transform = `translateX(${position}px)`;
 
             // Make ball follow user if game hasn't started.
@@ -100,13 +110,13 @@ function MovePlayer(event) {
         case "ArrowRight":
 
             // Keep player paddle in bounds and move right if right arrow is clicked.
-            if (position < 348) {
+            if (position < 425) {
                 position += 12;
             }
-            if (position == 348) {
-                position += 8;
+            if (position == 432) {
+                position += 4.5;
             }
-            console.log(position);
+            // console.log(position);
             player.style.transform = `translateX(${position}px)`;
 
             // Make ball follow user if game hasn't started.
@@ -119,6 +129,8 @@ function MovePlayer(event) {
 
     }
 
+    console.log(position)
+
 
 }
 
@@ -129,19 +141,55 @@ document.addEventListener('keydown', MovePlayer);
 // Create ball
 function CreateBall() {
     // Styling
+
+    /* my code.
     ball.style.width = "25px";
     ball.style.height = "25px";
-    ball.src = "cat.gif"
+    ball.style.backgroundImage = "url(cat.gif)"
+    ball.style.backgroundPosition = "center"
+    ball.style.backgroundSize = "145%"
     ball.style.position = "absolute";
     // ball.style.border = "outset 4px white";
     ball.style.bottom = "66px";
     gameContainer.appendChild(ball);
-
     // Position
     ball.style.transform = `translateX(${(gameContainerRect.width / 2) - (ball.getBoundingClientRect().width / 2) + 3}px)`;
+    */
+
+    // Maya's code.
+    // Styling
+    ball.id = "sprite";
+    ball.src = "cat-sprite.png"
+    ball.alt = "Cat Sprite"
+    ball.classList.add("chilling")
+    // ball.classList.add("cat-moving")
+
+    ball.style.position = "absolute";
+
+    ballbox.className = "ballbox"
+
+    ballbox.appendChild(ball)
+    gameContainer.appendChild(ballbox);
+
+    // Position
+    ballbox.style.transform = `translateX(${(gameContainerRect.width / 2) - (ballbox.getBoundingClientRect().width / 2) + 5}px)`;
 
 }
 CreateBall();
+
+
+// Create water
+function CreateWater() {
+    // Styling
+    water.id = "water"
+    water.style.position = "absolute"
+    water.style.width = "100%"
+    water.style.height = "43px"
+    water.style.bottom = "0px";
+
+    gameContainer.appendChild(water);
+}
+CreateWater();
 
 // Set bottom to 68px;
 let bottom = 68
@@ -151,8 +199,8 @@ let ballLeft = 0;
 
 
 function MoveBall() {
-    ball.style.bottom = bottom + "px";
-    ball.style.left = ballLeft + "px";
+    ballbox.style.bottom = bottom + "px";
+    ballbox.style.left = ballLeft + "px";
 
 
     // Most basic bouncing off top. If top edge is hit, move ball downward. Else, move ball up.
@@ -206,9 +254,7 @@ function MoveBall() {
         bottom -= 4;
     }
 
-    console.log("Top Edge:", topEdge, "Right Edge:", rightEdge, "Left Edge:", leftEdge, "Plyr Right:", pRightSide, "Plyr Left:", pLeftSide)
-
-
+    // console.log("Top Edge:", topEdge, "Right Edge:", rightEdge, "Left Edge:", leftEdge, "Plyr Right:", pRightSide, "Plyr Left:", pLeftSide)
 
     CheckCollision();
     if (bottom <= 1) {
@@ -223,14 +269,15 @@ function MoveBall() {
 let frontEndScore = document.querySelector("#score");
 
 function CheckCollision() {
-    let ballRect = ball.getBoundingClientRect();
+    // originally: let ballRect = ball.getBoundingClientRect();
+    let ballRect = ballbox.getBoundingClientRect();
     let playerRect = player.getBoundingClientRect();
     // Redeclaring this because dev-tools was messing up the boundaries.
     let gameRect = gameContainer.getBoundingClientRect()
-    
+
     // check for top wall collision
     if (ballRect.top <= (gameRect.top)) {
-        console.log("HIT TOP");
+        // console.log("HIT TOP");
         bottom -= 2;
         topEdge = true;
 
@@ -247,6 +294,9 @@ function CheckCollision() {
             bottom -= 2;
             brickBottomCollision = true;
             topEdge = false;
+            ball.className = "cat-moving-down"
+
+            lifeLostDirectionChange = false;
             return;
 
         }
@@ -256,21 +306,27 @@ function CheckCollision() {
     let gridLength = grid.querySelectorAll(".hidden").length
     frontEndScore.innerHTML = gridLength;
 
-    if (gridLength == 18) {
+    if (gridLength == 39) {
         win = true;
         return;
     }
 
     // check for user collision
     if (ballRect.bottom >= playerRect.top && ballRect.right >= playerRect.left && ballRect.left <= playerRect.right) {
-        console.log("user collision");
+        // console.log("user collision");
 
         topEdge = false;
         leftEdge = false;
         rightEdge = false;
         brickBottomCollision = false;
 
+        ball.className = "cat-moving-up"
         bottom += 2;
+    }
+
+    // Check for lost life
+    if (lifeLostDirectionChange) {
+        bottom += 4
     }
 
     // Check player paddle right side collision
@@ -286,21 +342,28 @@ function CheckCollision() {
 
     // Right wall collision
     if (ballRect.right >= gameRect.right) {
-        console.log("Hit right")
+        // console.log("Hit right")
         rightEdge = true;
         leftEdge = false;
+        ball.src = ("Cat-sprite-flip.png")
+        ballbox.classList.add("flip");
     }
 
     // Left wall collision
     if (ballRect.left <= gameRect.left) {
-        console.log("Hit left")
+        // console.log("Hit left")
         leftEdge = true;
         rightEdge = false;
+
+        ballbox.classList.remove("flip");
+        ball.src = ("Cat-sprite.png")
+
     }
 
 }
 
 let startButton = document.querySelector("#gameStart")
+
 function Game() {
     if (!gameStart) {
         gameStart = true;
@@ -313,27 +376,33 @@ function Game() {
         return;
     }
 
+    if (timesup) {
+        alert("GAME OVER! time's up.")
+        return
+    }
+
     if (lifeLost) {
         lives.removeChild(lives.lastChild)
         // alert("Oops!, you lost a life.");
 
-        // Move player back to original position.
-        player.style.transform = `translateX(${(gameContainerRect.width / 2) - 120 / 2}px)`;
-        position = (gameContainerRect.width / 2) - 120 / 2 - 1;
-
         // Move ball back to original position.
-        ball.style.transform = `translateX(${(gameContainerRect.width / 2) - (ball.getBoundingClientRect().width / 2) + 3}px)`;
-        ball.style.bottom = "66px";
+        ballbox.style.transform = `translateX(${(gameContainerRect.width / 2) - (ball.getBoundingClientRect().width / 2) + 3}px)`;
+        ballbox.style.bottom = "66px";
         bottom = 68;
         lifeLost = false;
+
+        lifeLostDirectionChange = true
+
 
         if (document.querySelectorAll(".life").length == 0) {
             alert("Game over! You lost all your lives.")
             return;
         }
     }
-    MoveBall()
 
+    if (paused == false) {
+        MoveBall()
+    }
 
     requestAnimationFrame(Game)
 
@@ -343,4 +412,57 @@ function Game() {
 function Reload() {
     gameStart = false;
     window.location.reload();
+}
+
+let timerId;
+function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    timerId = setInterval(function () {
+        if (!timesup) {
+            minutes = parseInt(timer / 60, 10)
+            seconds = parseInt(timer % 60, 10);
+
+
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            display.textContent = minutes + ":" + seconds;
+
+
+            if (timer-- <= 0) {
+                timesup = true;
+                return
+            }
+        }
+    }, 1000);
+}
+
+let display = document.querySelector('#time');
+function InitTimer() {
+    let twoMin = 60 * 2
+    startTimer(twoMin, display);
+
+    // change animations
+    ball.className = "cat-moving-up"
+};
+
+function Pause() {
+    clearInterval(timerId);
+    paused = true;
+    pauseMenu.style.display = "block";
+    gameContainer.classList.add("blur");
+}
+
+function Resume() {
+    paused = false;
+    pauseMenu.style.display = "none";
+    gameContainer.classList.remove("blur");
+    let currentTime = document.querySelector("#time").innerHTML;
+    currentTime = currentTime.split(":")
+
+    let totalSeconds = (parseInt(currentTime[0]) * 60) + parseInt(currentTime[1])
+
+    startTimer(totalSeconds, display)
+
+
 }

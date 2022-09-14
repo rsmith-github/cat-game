@@ -8,14 +8,32 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="game-container">
-        <div class="grid"></div>
+    <div id="timer-div">Timer: <span id="time">02:00</span></div>
+    <div class="lives-and-score">
+        <div class="space"></div>
+        <div>Score <span id="score">0</span></div>
+        <div id="lives"></div>
+        <div class="space"></div>
     </div>
-    <div id="button-container">
-        <button onclick="Game()">Start</button>
-        <button onclick="Stop()">Another Button</button>
-    </div>
-    <div>Score <span id="score">0</span></div>
+    <main>
+
+        
+        
+        <div id="game-container">
+            <div class="grid"></div>
+        </div>
+        <div id="button-container">
+            <button onclick="Game(); InitTimer();" id="gameStart">Start</button>
+            <button onclick="Pause()">Pause</button>
+        </div>
+        <br>
+        <br>
+        
+        <div id="pause-menu">
+            <button onclick="Resume()" id="resume">Resume</button>
+            <button onclick="Reload()">Restart</button>
+        </div>
+    </main>
     <script src="index.js"></script>
 </body>
 </html>
