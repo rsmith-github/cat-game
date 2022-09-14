@@ -8,17 +8,21 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="title">
-        <p id="title-text">Brick-Breaker</p>
-    </div>
-    <div id="game-container">
-        <div class="grid"></div>
-    </div>
-    <div id="button-container">
-        <button onclick="Game()">Start</button>
-        <button onclick="Stop()">Another Button</button>
-    </div>
-    <div>Score <span id="score">0</span></div>
+    <main>
+
+        <div id="lives"></div>
+        <div class="title">
+            <p id="title-text">Brick-Breaker</p>
+        </div>
+        <div id="game-container">
+            <div class="grid"></div>
+        </div>
+        <div id="button-container">
+            <button onclick="Game()">Start</button>
+            <button onclick="Stop()">Another Button</button>
+        </div>
+        <div>Score <span id="score">0</span></div>
+    </main>
     <script src="index.js"></script>
 </body>
 </html>

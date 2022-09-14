@@ -2,10 +2,17 @@
  --pixel-size: 6;
 }
 body {
+    margin-top: 5%;
+    /* background: #3399ff; */
+    /* overflow: hidden; */
+
+}
+
+main {
     display: flex;
     align-items: center;
     flex-direction: column;
-    background-image: url(https://img.freepik.com/free-vector/blank-nature-park-landscape-daytime-scene_1308-57977.jpg?w=2000);
+    background-image: url(https://img.freepik.com/free-vector/blank-nature-park-landscape-daytime-scene_1308-57977.jpg?w=2000) !important;
     background-position: 58%;
 }
 
@@ -26,9 +33,13 @@ body {
     border-radius: 3px;
     height: 32rem;
     width: 560px;
-    position: relative;
+    /* grid-template-columns: auto auto auto auto auto auto; */
+    column-gap: 10px;
+    row-gap: 10px;
     backdrop-filter: blur(100px);
+
 }
+
 
 #player {
     background-image: url(grass-tile.png);
@@ -72,6 +83,7 @@ body {
     display: flex;
     width: 42%;
     justify-content: space-evenly;
+    position: relative;
 }
 
 @keyframes tailwag {
@@ -94,7 +106,18 @@ body {
     from {
         transform: translate3d(0px,-30%,0);
     }
+
     to {
         transform: translate3d(-50%,-30%,0);
     }
+}
+  
+
+#lives {
+    align-items: flex-start;
+}
+
+.lives-and-score {
+    display: flex;
+    justify-content: space-evenly;
 }
