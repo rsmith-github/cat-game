@@ -39,7 +39,6 @@ function CreateGrid() {
         // let newBlock = new Block
         // newBlock.bottomLeft = rectangle.left
     }
-
 }
 CreateGrid();
 
@@ -65,6 +64,8 @@ function CreatePlayer() {
     player.style.height = "15px";
     player.style.width = "120px";
     player.style.transform = `translateX(${(gameContainerRect.width / 2) - 120 / 2}px)`;
+
+    // player.style.backgroundImage = "url(grass-tile.png)"
 
     player.style.bottom = "50px";
     player.style.marginLeft = "1px";
@@ -176,7 +177,6 @@ function CreateBall() {
 
 }
 CreateBall();
-
 
 // Create water
 function CreateWater() {
