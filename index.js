@@ -184,6 +184,7 @@ function MoveBall() {
     ballbox.style.left = ballLeft + "px";
 
     // Most basic bouncing off top. If top edge is hit, move ball downward. Else, move ball up.
+
     if (topEdge) {
         bottom -= 2;
     } else if (!topEdge) {
@@ -260,6 +261,7 @@ function CheckCollision() {
         // console.log("HIT TOP");
         bottom -= 2;
         topEdge = true;
+
     }
 
     // Check for block collision

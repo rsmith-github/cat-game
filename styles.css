@@ -113,22 +113,6 @@
            transform: translate(-53.5%,-6%);
        }
    }
-   @keyframes lick {
-       from {
-           transform: translate3d(0px,-20%,0);
-       }
-       to {
-           transform: translate3d(-50%,-20%,0);
-       }
-   }
-   @keyframes clean {
-       from {
-           transform: translate3d(0px,-30%,0);
-       }
-       to {
-           transform: translate3d(-50%,-30%,0);
-       }
-   }
 
    @keyframes cat-up {
         from {
