@@ -131,8 +131,6 @@ function MovePlayer(event) {
 
     }
 
-    console.log(position)
-
 
 }
 
@@ -143,28 +141,10 @@ document.addEventListener('keydown', MovePlayer);
 // Create ball
 function CreateBall() {
     // Styling
-
-    /* my code.
-    ball.style.width = "25px";
-    ball.style.height = "25px";
-    ball.style.backgroundImage = "url(cat.gif)"
-    ball.style.backgroundPosition = "center"
-    ball.style.backgroundSize = "145%"
-    ball.style.position = "absolute";
-    // ball.style.border = "outset 4px white";
-    ball.style.bottom = "66px";
-    gameContainer.appendChild(ball);
-    // Position
-    ball.style.transform = `translateX(${(gameContainerRect.width / 2) - (ball.getBoundingClientRect().width / 2) + 3}px)`;
-    */
-
-    // Maya's code.
-    // Styling
     ball.id = "sprite";
     ball.src = "cat-sprite.png"
     ball.alt = "Cat Sprite"
     ball.classList.add("chilling")
-    // ball.classList.add("cat-moving")
 
     ball.style.position = "absolute";
 
@@ -270,7 +250,6 @@ function MoveBall() {
 let frontEndScore = document.querySelector("#score");
 
 function CheckCollision() {
-    // originally: let ballRect = ball.getBoundingClientRect();
     let ballRect = ballbox.getBoundingClientRect();
     let playerRect = player.getBoundingClientRect();
     // Redeclaring this because dev-tools was messing up the boundaries.
@@ -281,7 +260,6 @@ function CheckCollision() {
         // console.log("HIT TOP");
         bottom -= 2;
         topEdge = true;
-
     }
 
     // Check for block collision
@@ -327,7 +305,6 @@ function CheckCollision() {
         rightEdge = false;
         brickBottomCollision = false;
 
-        console.log(ball.src)
         if (ball.src == "http://127.0.0.1:5500/Cat-Sprite-Flip.png") {
             ball.className = "cat-flipped-up"
         } else {
