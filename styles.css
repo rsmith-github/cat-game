@@ -6,7 +6,8 @@
        display: flex;
        align-items: center;
        flex-direction: column;
-       background-image: url(https://img.freepik.com/free-vector/blank-nature-park-landscape-daytime-scene_1308-57977.jpg?w=2000);
+       /* background-image: url(https://img.freepik.com/free-vector/blank-nature-park-landscape-daytime-scene_1308-57977.jpg?w=2000); */
+       background-image: url("bg2.jpeg");
        background-position: 58%;
    }
 
@@ -78,8 +79,16 @@
    }
    .cat-moving-down {
     width: calc(100px * var(--pixel-size)) !important;
-        animation:
-            cat-down 5s steps(1) infinite;
+    transform: translate(-40.8%,-84%) !important
+   }
+
+   .cat-flipped-up {
+    width: calc(100px * var(--pixel-size)) !important;
+    transform: translate(-77.8%,-85%) !important
+   }
+   .cat-flipped-down {
+    width: calc(100px * var(--pixel-size)) !important;
+    transform: translate(-319.5px, -84%) !important
    }
 
    
@@ -122,12 +131,6 @@
    }
 
    @keyframes cat-up {
-    /* from {
-        transform: translate3d(-28.5%,-84.5%,0);
-    }
-    to {
-        transform: translate3d(-3.4%,-85.5%,0);
-    } */
         from {
             transform: translate3d(-15.8%,-85%,0);
         }
@@ -145,28 +148,10 @@
 
         }
    }
-   
-   @keyframes cat-flipped-down {
-        from {
-            transform: translate3d(-40.8%,-84%,0);
-        }
-        to {
-            transform: translate3d(-40.8%,-84%,0);
-
-        }
-   }
-   @keyframes cat-flipped-down {
-        from {
-            transform: translate3d(-40.8%,-84%,0);
-        }
-        to {
-            transform: translate3d(-40.8%,-84%,0);
-
-        }
-   }
 
 .flip {
-    /* transform: scaleX(-1) !important; */
+    width: calc(100px * var(--pixel-size)) !important;
+    transform: translate3d(-52.8%,-84%,0) !important;
     
 }
 

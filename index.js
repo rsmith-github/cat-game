@@ -1,3 +1,4 @@
+
 let body = document.body;
 let gameContainer = document.querySelector("#game-container");
 let gameContainerRect = gameContainer.getBoundingClientRect()
@@ -102,10 +103,10 @@ function MovePlayer(event) {
             player.style.transform = `translateX(${position}px)`;
 
             // Make ball follow user if game hasn't started.
-            if (!gameStart) {
-                ballPos -= 12
-                ball.style.transform = `translateX(${ballPos}px)`;
-            }
+            // if (!gameStart) {
+            //     ballPos -= 12
+            //     ball.style.transform = `translateX(${ballPos}px)`;
+            // }
 
             break;
         case "ArrowRight":
@@ -121,10 +122,10 @@ function MovePlayer(event) {
             player.style.transform = `translateX(${position}px)`;
 
             // Make ball follow user if game hasn't started.
-            if (!gameStart) {
-                ballPos += 8
-                ball.style.transform = `translateX(${ballPos}px)`;
-            }
+            // if (!gameStart) {
+            //     ballPos += 8
+            //     ball.style.transform = `translateX(${ballPos}px)`;
+            // }
 
             break;
 
@@ -202,7 +203,6 @@ function MoveBall() {
     ballbox.style.bottom = bottom + "px";
     ballbox.style.left = ballLeft + "px";
 
-
     // Most basic bouncing off top. If top edge is hit, move ball downward. Else, move ball up.
     if (topEdge) {
         bottom -= 2;
@@ -262,6 +262,7 @@ function MoveBall() {
         lifeLost = true;
         return;
     }
+
 }
 
 
@@ -294,7 +295,13 @@ function CheckCollision() {
             bottom -= 2;
             brickBottomCollision = true;
             topEdge = false;
-            ball.className = "cat-moving-down"
+
+            if (ball.src == "http://127.0.0.1:5500/Cat-Sprite-Flip.png") {
+                ball.className = "cat-flipped-down"
+
+            } else {
+                ball.className = "cat-moving-down"
+            }
 
             lifeLostDirectionChange = false;
             return;
@@ -306,7 +313,7 @@ function CheckCollision() {
     let gridLength = grid.querySelectorAll(".hidden").length
     frontEndScore.innerHTML = gridLength;
 
-    if (gridLength == 39) {
+    if (gridLength == 40) {
         win = true;
         return;
     }
@@ -320,7 +327,13 @@ function CheckCollision() {
         rightEdge = false;
         brickBottomCollision = false;
 
-        ball.className = "cat-moving-up"
+        console.log(ball.src)
+        if (ball.src == "http://127.0.0.1:5500/Cat-Sprite-Flip.png") {
+            ball.className = "cat-flipped-up"
+        } else {
+            ball.className = "cat-moving-up"
+        }
+
         bottom += 2;
     }
 
@@ -345,8 +358,14 @@ function CheckCollision() {
         // console.log("Hit right")
         rightEdge = true;
         leftEdge = false;
-        ball.src = ("Cat-sprite-flip.png")
-        ballbox.classList.add("flip");
+        ball.src = ("Cat-Sprite-Flip.png")
+
+        if (ball.className != "cat-moving-up" && ball.className != "cat-flipped-up") {
+            ball.classList.add("flip");
+        } else {
+            ball.className = "cat-flipped-up"
+        }
+
     }
 
     // Left wall collision
@@ -355,8 +374,16 @@ function CheckCollision() {
         leftEdge = true;
         rightEdge = false;
 
-        ballbox.classList.remove("flip");
         ball.src = ("Cat-sprite.png")
+
+        if (pLeftSide) {
+            ball.className = "cat-moving-up"
+        } else {
+            ball.className = "cat-moving-down"
+        }
+
+
+
 
     }
 
@@ -386,8 +413,9 @@ function Game() {
         // alert("Oops!, you lost a life.");
 
         // Move ball back to original position.
-        ballbox.style.transform = `translateX(${(gameContainerRect.width / 2) - (ball.getBoundingClientRect().width / 2) + 3}px)`;
-        ballbox.style.bottom = "66px";
+        // Most likely don't need this.
+        // ballbox.style.transform = `translateX(${(gameContainerRect.width / 2) - (ball.getBoundingClientRect().width / 2) + 3}px)`;
+        // ballbox.style.bottom = "66px";
         bottom = 68;
         lifeLost = false;
 
