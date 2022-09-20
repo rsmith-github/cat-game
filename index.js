@@ -20,13 +20,13 @@ let blocks = [];
 function CreateGrid() {
     for (let i = 0; i < 40; i++) {
         let rectangle = document.createElement("img");
-        rectangle.src = "meat.png"
+        rectangle.src = "static/meat.png"
         if (i >= 10 && i <= 19) {
-            rectangle.src = "catfood.png"
+            rectangle.src = "static/catfood.png"
         } else if (i >= 20 && i <= 29) {
-            rectangle.src = "fish.png"
+            rectangle.src = "static/fish.png"
         } else if (i >= 30 && i <= 40) {
-            rectangle.src = "prawn.png"
+            rectangle.src = "static/prawn.png"
         }
         rectangle.style.imageRendering = "pixelated";
         rectangle.style.objectFit = "scale-down"
@@ -46,7 +46,7 @@ CreateGrid();
 function DisplayLives() {
     for (let i = 0; i < 3; i++) {
         let life = document.createElement("img");
-        life.src = "life.png";
+        life.src = "static/life.png";
         life.style.height = "20px";
         life.style.width = "20px";
         life.className = "life"
@@ -275,7 +275,7 @@ function CheckCollision() {
             bottom -= 2;
             brickBottomCollision = true;
             topEdge = false;
-            console.log(ball.src)
+
             if (ball.src == "https://rsmith-github.github.io/cat-game/static/catflip.png") {
                 ball.className = "cat-flipped-down"
             } else {
@@ -305,7 +305,7 @@ function CheckCollision() {
         leftEdge = false;
         rightEdge = false;
         brickBottomCollision = false;
-        console.log(ball.src)
+
         if (ball.src == "https://rsmith-github.github.io/cat-game/static/catflip.png") {
             ball.className = "cat-flipped-up"
         } else {
