@@ -142,7 +142,7 @@ document.addEventListener('keydown', MovePlayer);
 function CreateBall() {
     // Styling
     ball.id = "sprite";
-    ball.src = "Cat-sprite.png"
+    ball.src = "cat.png"
     ball.alt = "Cat Sprite"
     ball.classList.add("chilling")
 
@@ -276,7 +276,7 @@ function CheckCollision() {
             brickBottomCollision = true;
             topEdge = false;
             console.log(ball.src)
-            if (ball.src == "https://rsmith-github.github.io/cat-game/Cat-Sprite-Flip.png") {
+            if (ball.src == "https://rsmith-github.github.io/cat-game/catflip.png") {
                 ball.className = "cat-flipped-down"
 
             } else {
@@ -307,7 +307,7 @@ function CheckCollision() {
         rightEdge = false;
         brickBottomCollision = false;
         console.log(ball.src)
-        if (ball.src == "https://rsmith-github.github.io/cat-game/Cat-Sprite-Flip.png") {
+        if (ball.src == "https://rsmith-github.github.io/cat-game/catflip.png") {
             ball.className = "cat-flipped-up"
         } else {
             ball.className = "cat-moving-up"
@@ -337,7 +337,7 @@ function CheckCollision() {
         // console.log("Hit right")
         rightEdge = true;
         leftEdge = false;
-        ball.src = ("Cat-Sprite-Flip.png")
+        ball.src = ("catflip.png")
 
         if (ball.className != "cat-moving-up" && ball.className != "cat-flipped-up") {
             ball.classList.add("flip");
@@ -353,7 +353,7 @@ function CheckCollision() {
         leftEdge = true;
         rightEdge = false;
 
-        ball.src = ("Cat-sprite.png")
+        ball.src = ("cat.png")
 
         if (pLeftSide) {
             ball.className = "cat-moving-up"
