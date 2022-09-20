@@ -119,6 +119,8 @@ function MovePlayer(event) {
 // Move player on keydown.
 document.addEventListener('keydown', MovePlayer);
 
+// For firefox.
+gameContainer.click();
 
 // Create ball
 function CreateBall() {
