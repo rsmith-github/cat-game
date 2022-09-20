@@ -89,9 +89,6 @@ function MovePlayer(event) {
 
     switch (event.key) {
         case "ArrowLeft":
-            // let ballRect = ball.getBoundingClientRect()
-
-
             // Keep player paddle in bounds and move left if left arrow is clicked.
             if (position > 4.5) {
                 position -= 12;
@@ -101,16 +98,8 @@ function MovePlayer(event) {
             }
 
             player.style.transform = `translateX(${position}px)`;
-
-            // Make ball follow user if game hasn't started.
-            // if (!gameStart) {
-            //     ballPos -= 12
-            //     ball.style.transform = `translateX(${ballPos}px)`;
-            // }
-
             break;
         case "ArrowRight":
-
             // Keep player paddle in bounds and move right if right arrow is clicked.
             if (position < 425) {
                 position += 12;
@@ -118,15 +107,8 @@ function MovePlayer(event) {
             if (position == 432) {
                 position += 4.5;
             }
-            // console.log(position);
+
             player.style.transform = `translateX(${position}px)`;
-
-            // Make ball follow user if game hasn't started.
-            // if (!gameStart) {
-            //     ballPos += 8
-            //     ball.style.transform = `translateX(${ballPos}px)`;
-            // }
-
             break;
 
     }
@@ -154,7 +136,7 @@ function CreateBall() {
     gameContainer.appendChild(ballbox);
 
     // Position
-    ballbox.style.transform = `translateX(${(gameContainerRect.width / 2) - (ballbox.getBoundingClientRect().width / 2) + 5}px)`;
+    ballbox.style.left = `${(gameContainerRect.width / 2) - (ballbox.getBoundingClientRect().width / 2)}px`;
 
 }
 CreateBall();
@@ -180,11 +162,9 @@ let ballLeft = 0;
 
 
 function MoveBall() {
-    ballbox.style.bottom = bottom + "px";
-    ballbox.style.left = ballLeft + "px";
+    ballbox.style.transform = `translate(${ballLeft}px,${-bottom + 66}px)`
 
     // Most basic bouncing off top. If top edge is hit, move ball downward. Else, move ball up.
-
     if (topEdge) {
         bottom -= 2;
     } else if (!topEdge) {
@@ -216,7 +196,6 @@ function MoveBall() {
             ballLeft += 2
         }
     }
-
 
     // Left wall.
     if (leftEdge == true && !topEdge) {
@@ -359,10 +338,6 @@ function CheckCollision() {
         } else {
             ball.className = "cat-moving-down"
         }
-
-
-
-
     }
 
 }
@@ -388,17 +363,10 @@ function Game() {
 
     if (lifeLost) {
         lives.removeChild(lives.lastChild)
-        // alert("Oops!, you lost a life.");
-
-        // Move ball back to original position.
-        // Most likely don't need this.
-        // ballbox.style.transform = `translateX(${(gameContainerRect.width / 2) - (ball.getBoundingClientRect().width / 2) + 3}px)`;
-        // ballbox.style.bottom = "66px";
         bottom = 68;
         lifeLost = false;
 
         lifeLostDirectionChange = true
-
 
         if (document.querySelectorAll(".life").length == 0) {
             alert("Game over! You lost all your lives.")
@@ -413,7 +381,6 @@ function Game() {
     requestAnimationFrame(Game)
 
 }
-
 
 function Reload() {
     gameStart = false;
