@@ -275,7 +275,7 @@ function CheckCollision() {
             bottom -= 2;
             brickBottomCollision = true;
             topEdge = false;
-
+            console.log(ball.src)
             if (ball.src == "static/Cat-Sprite-Flip.png") {
                 ball.className = "cat-flipped-down"
 
@@ -306,8 +306,8 @@ function CheckCollision() {
         leftEdge = false;
         rightEdge = false;
         brickBottomCollision = false;
-
-        if (ball.src == "static/Cat-Sprite-Flip.png") {
+        console.log(ball.src)
+        if (ball.src == "https://rsmith-github.github.io/cat-game/static/Cat-Sprite-Flip.png") {
             ball.className = "cat-flipped-up"
         } else {
             ball.className = "cat-moving-up"
