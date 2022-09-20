@@ -20,13 +20,13 @@ let blocks = [];
 function CreateGrid() {
     for (let i = 0; i < 40; i++) {
         let rectangle = document.createElement("img");
-        rectangle.src = "meat.png"
+        rectangle.src = "static/meat.png"
         if (i >= 10 && i <= 19) {
-            rectangle.src = "catfood.png"
+            rectangle.src = "static/catfood.png"
         } else if (i >= 20 && i <= 29) {
-            rectangle.src = "fish.png"
+            rectangle.src = "static/fish.png"
         } else if (i >= 30 && i <= 40) {
-            rectangle.src = "prawn.png"
+            rectangle.src = "static/prawn.png"
         }
         rectangle.style.imageRendering = "pixelated";
         rectangle.style.objectFit = "scale-down"
@@ -46,7 +46,7 @@ CreateGrid();
 function DisplayLives() {
     for (let i = 0; i < 3; i++) {
         let life = document.createElement("img");
-        life.src = "life.png";
+        life.src = "static/life.png";
         life.style.height = "20px";
         life.style.width = "20px";
         life.className = "life"
@@ -142,7 +142,7 @@ document.addEventListener('keydown', MovePlayer);
 function CreateBall() {
     // Styling
     ball.id = "sprite";
-    ball.src = "cat-sprite.png"
+    ball.src = "static/cat-sprite.png"
     ball.alt = "Cat Sprite"
     ball.classList.add("chilling")
 
@@ -276,7 +276,7 @@ function CheckCollision() {
             brickBottomCollision = true;
             topEdge = false;
 
-            if (ball.src == "http://127.0.0.1:5500/Cat-Sprite-Flip.png") {
+            if (ball.src == "http://127.0.0.1:5500/static/Cat-Sprite-Flip.png") {
                 ball.className = "cat-flipped-down"
 
             } else {
@@ -307,7 +307,7 @@ function CheckCollision() {
         rightEdge = false;
         brickBottomCollision = false;
 
-        if (ball.src == "http://127.0.0.1:5500/Cat-Sprite-Flip.png") {
+        if (ball.src == "http://127.0.0.1:5500/static/Cat-Sprite-Flip.png") {
             ball.className = "cat-flipped-up"
         } else {
             ball.className = "cat-moving-up"
@@ -337,7 +337,7 @@ function CheckCollision() {
         // console.log("Hit right")
         rightEdge = true;
         leftEdge = false;
-        ball.src = ("Cat-Sprite-Flip.png")
+        ball.src = ("static/Cat-Sprite-Flip.png")
 
         if (ball.className != "cat-moving-up" && ball.className != "cat-flipped-up") {
             ball.classList.add("flip");
@@ -353,7 +353,7 @@ function CheckCollision() {
         leftEdge = true;
         rightEdge = false;
 
-        ball.src = ("Cat-sprite.png")
+        ball.src = ("static/Cat-sprite.png")
 
         if (pLeftSide) {
             ball.className = "cat-moving-up"
