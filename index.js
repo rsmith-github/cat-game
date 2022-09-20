@@ -276,7 +276,7 @@ function CheckCollision() {
             brickBottomCollision = true;
             topEdge = false;
 
-            if (ball.src == "http://127.0.0.1:5500/static/Cat-Sprite-Flip.png") {
+            if (ball.src == "static/Cat-Sprite-Flip.png") {
                 ball.className = "cat-flipped-down"
 
             } else {
@@ -307,7 +307,7 @@ function CheckCollision() {
         rightEdge = false;
         brickBottomCollision = false;
 
-        if (ball.src == "http://127.0.0.1:5500/static/Cat-Sprite-Flip.png") {
+        if (ball.src == "static/Cat-Sprite-Flip.png") {
             ball.className = "cat-flipped-up"
         } else {
             ball.className = "cat-moving-up"
