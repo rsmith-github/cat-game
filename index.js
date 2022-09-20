@@ -119,9 +119,6 @@ function MovePlayer(event) {
 // Move player on keydown.
 document.addEventListener('keydown', MovePlayer);
 
-// For firefox.
-gameContainer.click();
-
 // Create ball
 function CreateBall() {
     // Styling
@@ -347,8 +344,10 @@ function CheckCollision() {
 let startButton = document.querySelector("#gameStart")
 
 function Game() {
-    if (!gameStart) {
+    if (gameStart == false) {
         gameStart = true;
+        // For firefox.
+        gameContainer.click();
     }
     if (gameStart) {
         startButton.disabled = true;
