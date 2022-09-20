@@ -142,7 +142,7 @@ document.addEventListener('keydown', MovePlayer);
 function CreateBall() {
     // Styling
     ball.id = "sprite";
-    ball.src = "static/cat-sprite.png"
+    ball.src = "static/Cat-sprite.png"
     ball.alt = "Cat Sprite"
     ball.classList.add("chilling")
 
