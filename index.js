@@ -121,6 +121,7 @@ leftbtn.addEventListener("touchstart", MoveLeft);
 rightbtn.addEventListener("touchstart", MoveRight);
 
 
+// Prevent zoom on double tap
 function preventZoom(e) {
     var t2 = e.timeStamp;
     var t1 = e.currentTarget.dataset.lastTouch || t2;
@@ -143,13 +144,15 @@ function MoveLeft(e) {
         Game();
         InitTimer();
     }
-    if (position > 4.5) {
+    if (position >= 29) {
         position -= 18;
         player.style.transform = `translateX(${position}px)`;
     }
-    if (position == 4.5) {
-        position -= 4.5
+    if (position == 11) {
+        position -= 11;
+        player.style.transform = `translateX(${position}px)`;
     }
+
 }
 
 // Mobile move right
@@ -161,10 +164,7 @@ function MoveRight(e) {
         Game();
         InitTimer();
     }
-    if (position < 215) {
-        position += 18;
-    }
-    if (position == 215) {
+    if (position <= 227) {
         position += 18;
     }
     player.style.transform = `translateX(${position}px)`;
@@ -342,8 +342,6 @@ function CheckCollision() {
         leftEdge = false;
         rightEdge = false;
         brickBottomCollision = false;
-
-        console.log(window.location.href)
 
         if (ball.src == `${url}catflip.png`) {
             ball.className = "cat-flipped-up"
