@@ -249,4 +249,7 @@
         margin-bottom: 0;
         width: 101%;
     }
+    #player {
+        width: 100px !important;
+    }
   }

@@ -140,10 +140,11 @@ function MoveLeft(e) {
     if (!gameStart) {
         gameStart = true;
         Game();
+        Game();
         InitTimer();
     }
     if (position > 4.5) {
-        position -= 15;
+        position -= 18;
         player.style.transform = `translateX(${position}px)`;
     }
     if (position == 4.5) {
@@ -156,6 +157,7 @@ function MoveRight(e) {
     preventZoom(e);
     if (!gameStart) {
         gameStart = true
+        Game();
         Game();
         InitTimer();
     }
@@ -519,3 +521,14 @@ function Resume() {
     startTimer(totalSeconds, display)
 
 }
+
+// Mobile positioning.
+function isMobile() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+}
+function initMobile() {
+    if (isMobile) {
+        player.style.transform = "translateX(130px)";
+    }
+}
+initMobile();
