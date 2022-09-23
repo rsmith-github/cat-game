@@ -1,4 +1,3 @@
-
 let body = document.body;
 let gameContainer = document.querySelector("#game-container");
 let gameContainerRect = gameContainer.getBoundingClientRect()
@@ -15,7 +14,6 @@ let pauseMenu = document.querySelector("#pause-menu");
 let paused = false;
 let timesup = false;
 
-
 let blocks = [];
 function CreateGrid() {
     for (let i = 0; i < 40; i++) {
@@ -30,7 +28,8 @@ function CreateGrid() {
         }
         rectangle.style.imageRendering = "pixelated";
         rectangle.style.objectFit = "scale-down"
-        rectangle.style.border = "solid 1px black";
+        rectangle.style.border = "solid 1px yellow";
+        rectangle.style.borderRadius = "8%";
         rectangle.style.height = "40px";
         rectangle.style.width = "100%";
         rectangle.id = `block-${i + 1}`
@@ -116,14 +115,11 @@ function MovePlayer(event) {
 
 }
 
-// Move player on keydown.
-document.addEventListener('keydown', MovePlayer);
-
 // Create ball
 function CreateBall() {
     // Styling
     ball.id = "sprite";
-    ball.src = "static/cat.png"
+    ball.src = "cat.png"
     ball.alt = "Cat Sprite"
     ball.classList.add("chilling")
 
@@ -228,7 +224,14 @@ function MoveBall() {
 // Set score to 0
 let frontEndScore = document.querySelector("#score");
 
+
 function CheckCollision() {
+    // Get current url to get correc src for spritesheet.
+    let url = window.location.href
+    if (url.includes("index.html")) {
+        url = window.location.href.slice(0, -10)
+    }
+
     let ballRect = ballbox.getBoundingClientRect();
     let playerRect = player.getBoundingClientRect();
     // Redeclaring this because dev-tools was messing up the boundaries.
@@ -254,7 +257,8 @@ function CheckCollision() {
             brickBottomCollision = true;
             topEdge = false;
 
-            if (ball.src == "https://rsmith-github.github.io/cat-game/static/catflip.png") {
+
+            if (ball.src == `${url}catflip.png`) {
                 ball.className = "cat-flipped-down"
             } else {
                 ball.className = "cat-moving-down"
@@ -284,7 +288,9 @@ function CheckCollision() {
         rightEdge = false;
         brickBottomCollision = false;
 
-        if (ball.src == "https://rsmith-github.github.io/cat-game/static/catflip.png") {
+        console.log(window.location.href)
+
+        if (ball.src == `${url}catflip.png`) {
             ball.className = "cat-flipped-up"
         } else {
             ball.className = "cat-moving-up"
@@ -314,7 +320,7 @@ function CheckCollision() {
         // console.log("Hit right")
         rightEdge = true;
         leftEdge = false;
-        ball.src = ("static/catflip.png")
+        ball.src = ("catflip.png")
 
         if (ball.className != "cat-moving-up" && ball.className != "cat-flipped-up") {
             ball.classList.add("flip");
@@ -330,7 +336,7 @@ function CheckCollision() {
         leftEdge = true;
         rightEdge = false;
 
-        ball.src = ("static/cat.png")
+        ball.src = ("cat.png")
 
         if (pLeftSide) {
             ball.className = "cat-moving-up"
@@ -341,16 +347,39 @@ function CheckCollision() {
 
 }
 
-let startButton = document.querySelector("#gameStart")
+document.addEventListener("keydown", MovePlayer)
+
+
+// Only start game once otherwise cat will go too fast.
+let sCount = 0;
+// Count pause
+let pCount = 1;
+document.addEventListener("keydown", function (event) {
+
+    if (event.key == "s" && sCount === 0 || event.key == "S" && sCount === 0) {
+        sCount++;
+        Game();
+        InitTimer();
+    }
+    if (event.key == "p" && pCount % 2 == 1) {
+        Pause();
+        pCount++;
+    } else if (event.key == "p" && pCount % 2 == 0) {
+        Resume();
+        pCount++;
+    }
+
+    if (paused == true && event.key == "r") {
+        window.location.reload()
+
+    }
+});
 
 function Game() {
     if (gameStart == false) {
         gameStart = true;
         // For firefox.
         gameContainer.click();
-    }
-    if (gameStart) {
-        startButton.disabled = true;
     }
     if (win) {
         alert("You win!");
@@ -413,7 +442,7 @@ function startTimer(duration, display) {
 
 let display = document.querySelector('#time');
 function InitTimer() {
-    let twoMin = 60 * 2
+    let twoMin = 60 * 2.5
     startTimer(twoMin, display);
 
     // change animations

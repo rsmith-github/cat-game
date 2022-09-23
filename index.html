@@ -8,27 +8,28 @@
     <link rel="stylesheet" href="static/styles.css">
 </head>
 <body>
-    <div id="timer-div">Timer: <span id="time">02:00</span></div>
+    <div id="game-title">Hungry Kitty</div>
+    <div id="timer-div">Timer: <span id="time">02:30</span></div>
     <div class="lives-and-score">
         <div class="space"></div>
         <div>Score <span id="score">0</span></div>
         <div id="lives"></div>
         <div class="space"></div>
     </div>
-    <main>        
+    <main>
         <div id="game-container">
             <div class="grid"></div>
         </div>
         <div id="button-container">
-            <button onclick="Game(); InitTimer();" id="gameStart">Start</button>
-            <button onclick="Pause()">Pause</button>
+            <div>Press S to Start</div> <div>Press P to Pause</div>
         </div>
-        <br>
-        <br>
         
         <div id="pause-menu">
-            <button onclick="Resume()" id="resume">Resume</button>
-            <button onclick="Reload()">Restart</button>
+            <h1>Press P to Unpause</h1>
+            <h1>Press R to restart</h1>
+            <div id="kitty-pause">
+                <img src="cat.png" id="pause-sprite">
+            </div>
         </div>
     </main>
     <script src="index.js"></script>

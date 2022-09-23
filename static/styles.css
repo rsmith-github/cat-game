@@ -1,14 +1,15 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 :root {
     --pixel-size: 6;
    }
    body {
-       display: flex;
-       align-items: center;
-       flex-direction: column;
-       /* background-image: url(https://img.freepik.com/free-vector/blank-nature-park-landscape-daytime-scene_1308-57977.jpg?w=2000); */
-       background-image: url("bg2.jpeg");
-       background-position: 58%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-image: url(bg2.jpeg);
+    background-position: 100%;
+    font-family: 'Press Start 2P', cursive;
+    color: rgb(233, 207, 6);
    }
 
    main {
@@ -30,12 +31,12 @@
    }
    
    #game-container {
-       border: solid 1.5px black;
-       border-radius: 3px;
-       height: 32rem;
-       width: 560px;
-       position: relative;
-       backdrop-filter: blur(100px);
+    border: solid 5px rgb(233, 207, 6);
+    border-radius: 3px;
+    height: 32rem;
+    width: 560px;
+    position: relative;
+    backdrop-filter: blur(100px);
    }
    
    #player {
@@ -66,12 +67,7 @@
    .chilling {
     animation: 
     tailwag 1.85s steps(4) infinite;
-    /* lick 0.6s steps(4) 3, */
-    /* clean 0.6s steps(4) 2; */
-    /* lick 0.6s steps(4) 2,
-    clean 0.6s steps(4) 1; */
    }
-
    .cat-moving-up {
     width: calc(100px * var(--pixel-size)) !important;
         animation:
@@ -91,8 +87,6 @@
     transform: translate(-319.5px, -84%) !important
    }
 
-   
-   
    #water {
        background-image: url(water.png);
        background-size: cover;
@@ -100,9 +94,11 @@
    }
    
    #button-container {
-       display: flex;
-       width: 42%;
-       justify-content: space-evenly;
+        display: flex;
+        width: 128%;
+        justify-content: space-evenly;
+        padding-top: 1em;
+        margin-bottom: 4em;
    }
    
    @keyframes tailwag {
@@ -120,7 +116,6 @@
         }
         to {
             transform: translate(-15.8%,-85%);
-
         }
    }
    @keyframes cat-down {
@@ -147,22 +142,76 @@
     width: 100%;
     display: flex;
     justify-content: space-evenly;
+    padding-bottom: 1em;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
 #timer-div {
     text-align: center;
+    padding: 2em;
+    font-size: 20px;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+
+#gameStart {
+    background: transparent;
+    border: transparent;
+    font-family: 'Press Start 2P', cursive;
+    color: #7fc320;
+    font-size: 21px;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+#gameStart:hover,
+#gamePause:hover {
+    cursor: pointer;
+    color: aliceblue;
+    font-size: 22px;
+}
+#gamePause {
+    background: transparent;
+    border: transparent;
+    font-family: 'Press Start 2P', cursive;
+    color: #e84242;
+    font-size: 19px;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
 #pause-menu {
-    top: 140px;
+    padding: 10px 0px 0px 25px;
+    top: 270px;
     position: absolute;
     width: 350px;
     height: 18rem;
     border: solid black 1px;
-    background-color:rgb(25, 11, 0);
+    background-color:rgb(17, 0, 198);
     display: none;
 }
 
+#kitty-pause {
+    width: calc(12px * var(--pixel-size));
+    height: calc(12px * var(--pixel-size));
+    padding-left: 5px;;
+    /* background-color: #7fc320; */
+    overflow: hidden;
+
+}
+#pause-sprite {
+    width: calc(196px * var(--pixel-size));
+    object-fit: cover;
+    image-rendering: pixelated;
+    transform: translate(0px, -64%);
+    animation: sleep 2s steps(4) infinite;
+}
 .blur {
     opacity: 50%;
+}
+@keyframes sleep {
+    from {
+        transform: translate(-3.1%,-65%);
+
+    }
+    to {
+        transform: translate(-53.1%,-65%);
+    }
 }
