@@ -95,7 +95,6 @@ function MovePlayer(event) {
             if (position == 4.5) {
                 position -= 4.5
             }
-
             player.style.transform = `translateX(${position}px)`;
             break;
         case "ArrowRight":
@@ -113,6 +112,34 @@ function MovePlayer(event) {
     }
 
 
+}
+
+let leftbtn = document.getElementById("leftbtn");
+let rightbtn = document.getElementById("rightbtn");
+
+leftbtn.addEventListener("touchstart", MoveLeft);
+rightbtn.addEventListener("touchstart", MoveRight);
+
+function MoveLeft() {
+    console.log(position)
+    if (position > 4.5) {
+        position -= 12;
+        player.style.transform = `translateX(${position}px)`;
+    }
+    if (position == 4.5) {
+        position -= 4.5
+    }
+}
+
+function MoveRight() {
+    console.log(position)
+    if (position < 215) {
+        position += 12;
+    }
+    if (position == 215) {
+        position += 11;
+    }
+    player.style.transform = `translateX(${position}px)`;
 }
 
 // Create ball
@@ -349,7 +376,6 @@ function CheckCollision() {
 
 document.addEventListener("keydown", MovePlayer)
 
-
 // Only start game once otherwise cat will go too fast.
 let sCount = 0;
 // Count pause
@@ -368,7 +394,6 @@ document.addEventListener("keydown", function (event) {
         Resume();
         pCount++;
     }
-
     if (paused == true && event.key == "r") {
         window.location.reload()
 
@@ -466,6 +491,5 @@ function Resume() {
     let totalSeconds = (parseInt(currentTime[0]) * 60) + parseInt(currentTime[1])
 
     startTimer(totalSeconds, display)
-
 
 }

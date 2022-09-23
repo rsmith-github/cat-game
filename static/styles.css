@@ -215,3 +215,29 @@
         transform: translate(-53.1%,-65%);
     }
 }
+
+
+.mobilebtn {
+    display: none;
+}
+
+@media only screen and (max-width: 680px) {
+    .instructions {
+        display: none;
+    }
+    .mobilebtn {
+        display: block;
+    }
+    #game-container {
+        height: 32rem;
+        width: 350px;
+       }
+       
+       .grid {
+        margin: 4px;
+        display: grid;
+        grid-template-columns: 29.5px 29.5px 29.5px 29.5px 29.5px 29.5px 29.5px 29.5px 29.5px 29.5px;
+        column-gap: 5px;
+        row-gap: 2px;
+    }
+  }
