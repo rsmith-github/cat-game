@@ -120,10 +120,16 @@ let rightbtn = document.getElementById("rightbtn");
 leftbtn.addEventListener("touchstart", MoveLeft);
 rightbtn.addEventListener("touchstart", MoveRight);
 
+
+// Mobile move left
 function MoveLeft() {
-    console.log(position)
+    if (!gameStart) {
+        gameStart = true;
+        Game();
+        InitTimer();
+    }
     if (position > 4.5) {
-        position -= 12;
+        position -= 15;
         player.style.transform = `translateX(${position}px)`;
     }
     if (position == 4.5) {
@@ -131,13 +137,18 @@ function MoveLeft() {
     }
 }
 
+// Mobile move right
 function MoveRight() {
-    console.log(position)
+    if (!gameStart) {
+        gameStart = true
+        Game();
+        InitTimer();
+    }
     if (position < 215) {
-        position += 12;
+        position += 18;
     }
     if (position == 215) {
-        position += 11;
+        position += 18;
     }
     player.style.transform = `translateX(${position}px)`;
 }
