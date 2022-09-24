@@ -521,12 +521,12 @@ function Resume() {
 }
 
 // Mobile positioning.
-function isMobile() {
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
-}
-function initMobile() {
-    if (isMobile) {
-        player.style.transform = "translateX(130px)";
-    }
-}
-initMobile();
+// function isMobile() {
+//     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+// }
+// function initMobile() {
+//     if (isMobile == true) {
+//         player.style.transform = "translateX(130px)";
+//     }
+// }
+// initMobile();
