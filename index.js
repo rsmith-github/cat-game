@@ -147,8 +147,9 @@ function MoveLeft(e) {
     if (!gameStart) {
         gameStart = true;
         Game();
-        Game();
         InitTimer();
+        ball.className = "center"
+        ball.id = ""
     }
     if (position >= 29) {
         position -= 18;
@@ -168,6 +169,8 @@ function MoveRight(e) {
         gameStart = true
         Game();
         InitTimer();
+        ball.className = "center"
+        ball.id = ""
     }
     if (position <= 227) {
         position += 18;
