@@ -44,6 +44,7 @@
        image-rendering: pixelated;
        background-repeat: no-repeat;
        background-size: cover;
+       will-change: transform;
    }
    
    .ballbox {
@@ -52,7 +53,11 @@
        /* background-color: rgba(0, 255, 132, 0.7); */
        overflow: hidden;
        position: absolute !important;
-       bottom: 66px;
+       bottom: 64px;
+       will-change: transform;
+       transition-timing-function: linear;
+       /* transition-duration: 0.03s; */
+       
    }
    
    #sprite {
@@ -67,24 +72,6 @@
    .chilling {
     animation: 
     tailwag 1.85s steps(4) infinite;
-   }
-   .cat-moving-up {
-    width: calc(100px * var(--pixel-size)) !important;
-        animation:
-            cat-up 5s steps(1) infinite;
-   }
-   .cat-moving-down {
-    width: calc(100px * var(--pixel-size)) !important;
-    transform: translate(-40.8%,-84%) !important
-   }
-
-   .cat-flipped-up {
-    width: calc(100px * var(--pixel-size)) !important;
-    transform: translate(-77.8%,-85%) !important
-   }
-   .cat-flipped-down {
-    width: calc(100px * var(--pixel-size)) !important;
-    transform: translate(-319.5px, -84%) !important
    }
 
    #water {
@@ -124,14 +111,12 @@
         }
         to {
             transform: translate(-40.8%,-84%);
-
         }
    }
 
 .flip {
     width: calc(100px * var(--pixel-size)) !important;
     transform: translate(-52.8%,-84%) !important;
-    
 }
 
 #lives {
@@ -142,6 +127,8 @@
     width: 100%;
     display: flex;
     justify-content: space-evenly;
+    padding-bottom: 1em;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
     padding-bottom: 1em;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
@@ -162,12 +149,7 @@
     font-size: 21px;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
-#gameStart:hover,
-#gamePause:hover {
-    cursor: pointer;
-    color: aliceblue;
-    font-size: 22px;
-}
+
 #gamePause {
     background: transparent;
     border: transparent;
@@ -217,6 +199,9 @@
 }
 
 
+.center {
+    width: 36px !important;
+}
 .mobilebtn {
     display: none;
     width: 100%;
