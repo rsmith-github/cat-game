@@ -90,17 +90,17 @@ CreatePlayer();
 let position = (gameContainerRect.width / 2) - 120 / 2 - 1;
 function MovePlayer(event) {
     if (!gameStart) return;
+    console.log(position)
 
     switch (event.key) {
         case "ArrowLeft":
             // Keep player paddle in bounds and move left if left arrow is clicked.
-            if (position > 4.5) {
+            if (position > 8) {
                 position -= 12;
             }
-            if (position == 4.5) {
-                position -= 4.5
+            if (position == 8) {
+                position -= 4
             }
-
             player.style.transform = `translateX(${position}px)`;
             break;
         case "ArrowRight":
@@ -108,8 +108,8 @@ function MovePlayer(event) {
             if (position < 425) {
                 position += 12;
             }
-            if (position == 432) {
-                position += 4.5;
+            if (position == 428) {
+                position += 8;
             }
 
             player.style.transform = `translateX(${position}px)`;
