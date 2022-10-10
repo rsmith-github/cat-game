@@ -1,4 +1,3 @@
-let body = document.body;
 let gameContainer = document.querySelector("#game-container");
 let gameContainerRect = gameContainer.getBoundingClientRect()
 let grid = document.querySelector(".grid");
@@ -88,9 +87,15 @@ function CreatePlayer() {
 
 CreatePlayer();
 let position = (gameContainerRect.width / 2) - 120 / 2 - 1;
+// Only start game once otherwise cat will go too fast.
+let sCount = 0;
+// Count pause
+let pCount = 1;
 function MovePlayer(event) {
+    start(event);
+
     if (!gameStart) return;
-    console.log(position)
+
 
     switch (event.key) {
         case "ArrowLeft":
@@ -101,6 +106,7 @@ function MovePlayer(event) {
             if (position == 8) {
                 position -= 4
             }
+
             player.style.transform = `translateX(${position}px)`;
             break;
         case "ArrowRight":
@@ -288,9 +294,29 @@ let frontEndScore = document.querySelector("#score");
 
 
 let url = window.location.href
+function trim() {
+    if (url.includes("index.html")) {
+        url = window.location.href.slice(0, -10)
+    }
+}
+trim();
 // Fake throttle
 let c = 2;
 let ballRec = ballbox.getBoundingClientRect();
+let gameRect = gameContainer.getBoundingClientRect();
+
+// Repaint grid on resize.
+window.addEventListener("resize", repaintGrid)
+function repaintGrid() {
+    gameRect = gameContainer.getBoundingClientRect();
+
+    blocks.forEach(rec => {
+        let newRect = rec.getBoundingClientRect()
+        rec.dataset.right = newRect.right;
+        rec.dataset.left = newRect.left;
+        rec.dataset.bottom = newRect.bottom;
+    })
+}
 function CheckCollision() {
     // Get current url to get correc src for spritesheet.
     if (url.includes("index.html")) {
@@ -303,8 +329,6 @@ function CheckCollision() {
         ballRec = ballbox.getBoundingClientRect();
     }
     c++
-
-    let gameRect = gameContainer.getBoundingClientRect();
 
     let playerRect = player.getBoundingClientRect();
 
@@ -409,16 +433,15 @@ function CheckCollision() {
 // document.addEventListener("keydown", MovePlayer)
 
 
-// Only start game once otherwise cat will go too fast.
-let sCount = 0;
-// Count pause
-let pCount = 1;
-document.addEventListener("keydown", function start(event) {
+function start(event) {
 
-    if (event.key == "s" && sCount === 0 || event.key == "S" && sCount === 0) {
+    if (event.key == "s" && sCount === 0) {
         ball.src = `${url}catup.png`
         sCount++;
-        Game();
+        gameStart = true;
+        ball.className = "center"
+        ball.id = ""
+        Game()
         InitTimer();
     }
     if (event.key == "p" && pCount % 2 == 1) {
@@ -433,7 +456,7 @@ document.addEventListener("keydown", function start(event) {
         window.location.reload()
 
     }
-});
+}
 
 
 window.addEventListener("keydown", MovePlayer)
@@ -507,9 +530,6 @@ let display = document.querySelector('#time');
 function InitTimer() {
     let twoMin = 60 * 2.5
     startTimer(twoMin, display);
-
-    // change animations
-    // ball.className = "cat-moving-up"
 };
 
 function Pause() {
