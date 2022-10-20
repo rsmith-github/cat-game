@@ -489,6 +489,7 @@ function preventZoom(e) {
 // Mobile move left
 function MoveLeft(e) {
     preventZoom(e);
+    window.scrollTo(0, document.body.scrollHeight);
     if (!gameStart) {
         ball.src = `catup.png`
         ball.id = ""
@@ -511,6 +512,7 @@ function MoveLeft(e) {
 // Mobile move right
 function MoveRight(e) {
     preventZoom(e);
+    window.scrollTo(0, document.body.scrollHeight);
     if (!gameStart) {
         ball.src = `catup.png`
         ball.id = ""
