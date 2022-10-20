@@ -330,12 +330,13 @@ function start(event) {
 
     if (event.key == "s" && sCount == 0) {
         ball.src = "catup.png"
-        sCount++;
-        gameStart = true;
         ball.id = ""
-        ball.className = "center"
+        ball.classList.remove("chilling")
+        ball.style.width = "36px";
         Game()
         InitTimer();
+        sCount++;
+        gameStart = true;
     }
     if (event.key == "p" && pCount % 2 == 1) {
         Pause();
@@ -355,12 +356,14 @@ window.addEventListener("keydown", MovePlayer)
 function Game() {
 
     if (gameStart && !paused) {
-        MoveBall()
-        drawPlayer()
+        MoveBall();
+        drawPlayer();
         bricksDimensions();
+
     }
     if (win) {
         alert("You win!");
+        clearInterval(timerId);
         return;
     }
     if (timesup) {

@@ -197,11 +197,6 @@
         transform: translate(-53.1%,-65%);
     }
 }
-
-
-.center {
-    width: 36px !important;
-}
 .mobilebtn {
     display: none;
     width: 100%;
