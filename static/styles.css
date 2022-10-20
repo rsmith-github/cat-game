@@ -249,6 +249,9 @@
         display: none;
     }
 
+    #timer-div {
+        padding: 1em;
+    }
     
     .instructions {
         display: none;
