@@ -331,8 +331,7 @@ function start(event) {
     if (event.key == "s" && sCount == 0) {
         ball.src = "catup.png"
         ball.id = ""
-        ball.classList.remove("chilling")
-        ball.style.width = "36px";
+        ball.className = "center"
         Game()
         InitTimer();
         sCount++;
