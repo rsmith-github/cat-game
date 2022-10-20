@@ -16,6 +16,8 @@ var lives = document.getElementById("lives");
 var pauseMenu = document.querySelector("#pause-menu");
 var paused = false;
 var timesup = false;
+let img = new Image();
+
 
 class Ball {
     constructor(left, bottom, direction, directionX, random) {
@@ -69,6 +71,7 @@ function CreateGrid() {
         grid.append(rectangle);
         blocks.push(rectangle);
     }
+    preloadImage("catup.png")
 }
 CreateGrid();
 
@@ -329,7 +332,7 @@ function CheckCollision() {
 function start(event) {
 
     if (event.key == "s" && sCount == 0) {
-        ball.src = "catup.png"
+        ball.src = `catup.png`
         ball.id = ""
         ball.className = "center"
         Game()
@@ -518,4 +521,8 @@ function MoveRight(e) {
         position += 18;
     }
     player.style.transform = `translateX(${position}px)`;
+}
+
+function preloadImage(url) {
+    img.src = url;
 }
