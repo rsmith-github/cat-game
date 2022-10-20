@@ -205,7 +205,7 @@ function MoveBall() {
         ballClass.moveRandom();
     }
 
-    if (ballClass.bottom <= 1) {
+    if (ballClass.bottom <= 30) {
         ballClass.moveUp()
         lifeLost = true;
         return;

@@ -202,8 +202,9 @@
     }
 }
 .eightbit-btn {
+    
     background: #92CD41;
-    display: inline-block;
+    display: none;
     position: relative;
     text-align: center;
     font-size: 30px;
@@ -245,6 +246,9 @@
 
 @media only screen and (max-width: 820px) {
 
+    .eightbit-btn {
+        display: inline-block;
+    }
     #game-title {
         display: none;
     }
@@ -252,7 +256,7 @@
     #timer-div {
         padding: 1em;
     }
-    
+
     .instructions {
         display: none;
     }
