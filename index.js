@@ -328,12 +328,12 @@ function CheckCollision() {
 
 function start(event) {
 
-    if (event.key == "s" && sCount === 0) {
-        ball.src = `${url}catup.png`
+    if (event.key == "s" && sCount == 0) {
+        ball.src = "catup.png"
         sCount++;
         gameStart = true;
-        ball.className = "center"
         ball.id = ""
+        ball.className = "center"
         Game()
         InitTimer();
     }
