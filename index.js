@@ -490,11 +490,12 @@ function preventZoom(e) {
 function MoveLeft(e) {
     preventZoom(e);
     if (!gameStart) {
+        ball.src = `catup.png`
+        ball.id = ""
+        ball.className = "center"
         gameStart = true;
         Game();
         InitTimer();
-        ball.className = "center"
-        ball.id = ""
     }
     if (position >= 29) {
         position -= 18;
@@ -511,11 +512,12 @@ function MoveLeft(e) {
 function MoveRight(e) {
     preventZoom(e);
     if (!gameStart) {
+        ball.src = `catup.png`
+        ball.id = ""
+        ball.className = "center"
         gameStart = true
         Game();
         InitTimer();
-        ball.className = "center"
-        ball.id = ""
     }
     if (position <= 227) {
         position += 18;
