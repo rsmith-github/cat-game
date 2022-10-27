@@ -21,7 +21,7 @@ Once the you have opened the game with your preferred method, press <kbd>s</kbd>
 
 ### To move the paddle:
 
-To move the paddle and catch the cat, use the <kbd>←</kbd> and <kbd>→</kbd> keys.
+To move the paddle, use <kbd>←</kbd> and <kbd>→</kbd> keys.
 
 <br/>
 <img src="cat-gameplay.gif" alt="drawing" width="500"/>
